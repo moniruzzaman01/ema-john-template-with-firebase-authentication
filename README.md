@@ -1,5 +1,6 @@
 # Getting Started with Create React App
-markup:    *This site is about food review.
+markup:    
+*This site is about food review.
             *Site has some customer review
             *created using react js library
             *used some dummy data in json form
