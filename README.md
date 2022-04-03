@@ -1,9 +1,8 @@
 # Getting Started with Create React App
-markup:    
-*This site is about food review.
-            *Site has some customer review
-            *created using react js library
-            *used some dummy data in json form
+ Markup : 1. A numbered list
+              1. A nested numbered list
+              2. Which is numbered
+          2. Which is numbered
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
