@@ -16,7 +16,7 @@ function Product(props) {
         <p>Manufacture: {seller}</p>
         <p>Rating: {ratings}</p>
       </div>
-      <button onClick={() => props.btnClickHandle(props.product)}>
+      <button>
         <span style={{ margin: "0 5px 0 0" }}>Add to cart</span>
         <FontAwesomeIcon icon={faShoppingCart} />
       </button>
