@@ -1,24 +1,39 @@
 import "./SignUp.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  useSignInWithGoogle,
+  useCreateUserWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
-import Spineer from "../spineer/Spineer";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-  console.log("form-data", email, password, confirmPassword);
+  const [createUserWithEmailAndPass, user1, loading1, error1] =
+    useCreateUserWithEmailAndPassword(auth);
+
   const handleSignupForm = (event) => {
     event.preventDefault();
+    if (password === confirmPassword) {
+      createUserWithEmailAndPass(email, password);
+    }
   };
   const handleGoogleSignIn = () => {
     signInWithGoogle();
   };
+  if (user || user1) {
+    navigate(from, { replace: true });
+  }
   return (
     <div className="sign-up">
       <div>
@@ -54,7 +69,33 @@ const SignUp = () => {
               required
             />
           </div>
-          {loading ? <Spineer /> : ""}
+          {loading || loading1 ? (
+            <p
+              style={{
+                color: "tomato",
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
+              Loading...
+            </p>
+          ) : (
+            ""
+          )}
+          {error || error1 ? (
+            <p
+              style={{
+                color: "tomato",
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
+              {error?.message}
+              {error1?.message}
+            </p>
+          ) : (
+            ""
+          )}
           <input className="form-submit" type="submit" value="SignUp" />
         </form>
         <p style={{ textAlign: "center" }}>
