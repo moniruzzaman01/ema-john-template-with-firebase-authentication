@@ -14,6 +14,10 @@
   margin-left: 8px;
   border-radius: 5px;
 }
+.order-product-container .details {
+  margin: 0 8px;
+  width: 70%;
+}
 .order-product-container .details h6 {
   font-size: 21px;
   color: #1c2b35;

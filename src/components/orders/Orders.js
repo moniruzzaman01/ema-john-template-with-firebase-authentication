@@ -1,19 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Orders.css";
 import OrderProduct from "../order-product/OrderProduct";
 import OrderSummary from "../order-summary/OrderSummary";
+import useCart from "../../hooks/useCart";
 
 const Orders = () => {
-  const ar = [...Array(10).keys()];
+  const [products, setProducts] = useState([]);
+  const [cart] = useCart(products);
+  useEffect(() => {
+    fetch("products.json")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
+
   return (
     <div className="orders-container">
       <div className="order-products">
-        {ar.map((a, index) => (
-          <OrderProduct key={index}></OrderProduct>
+        {cart.map((product, index) => (
+          <OrderProduct key={index} product={product}></OrderProduct>
         ))}
       </div>
       <div className="order-cart">
-        <OrderSummary></OrderSummary>
+        <OrderSummary cart={cart}></OrderSummary>
       </div>
     </div>
   );
